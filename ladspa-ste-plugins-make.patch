@@ -1,0 +1,29 @@
+--- STE-plugins-0.0.2/Makefile.orig	2014-02-15 17:37:31.000000000 +0100
++++ STE-plugins-0.0.2/Makefile	2022-01-27 21:45:51.127184724 +0100
+@@ -19,21 +19,23 @@
+ # -----------------------------------------------------------------------
+ 
+ 
++CXX = g++
+ CPPFLAGS += -I. -fPIC -D_REENTRANT
+-CXXFLAGS += -Wall -O2
++CXXFLAGS += -Wall
++LADSPA_LIB_DIR = /usr/lib/ladspa
+ 
+ all:	stereo-plugins.so
+ 
+ STEREO_O = stereo.o stereo_if.o 
+ stereo-plugins.so:	$(STEREO_O)	
+-	g++ -shared  -o $@  $(STEREO_O)
++	$(CXX) $(LDFLAGS) -shared  -o $@  $(STEREO_O)
+ 
+ stereo.o:	ladspaplugin.h stereo.h
+ stereo_if.o:	ladspaplugin.h stereo.h
+ 
+ 
+ install:	stereo-plugins.so
+-	cp  *.so /usr/lib/ladspa
++	cp -p *.so $(DESTDIR)$(LADSPA_LIB_DIR)
+ 
+ clean:
+ 	rm -rf *~ *.o *.so
