@@ -24,7 +24,7 @@ Wtyczki LADSPA STE (efektów stereofonicznych).
 
 %prep
 %setup -q -n STE-plugins-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 CPPFLAGS="%{rpmcppflags}" \
